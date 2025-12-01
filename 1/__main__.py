@@ -10,15 +10,17 @@ with open("./1/input.txt") as f:
 pos = 50
 count = 0
 for d, n in combination:
+    full_turns = n // 100
+    part = n % 100
+    count += full_turns
     if d == "L":
-        i = -1
-    elif d == "R":
-        i = 1
-
-    for _ in range(n):
-        pos = (pos + i) % 100
-        if pos == 0:
+        if pos != 0 and pos - part <= 0:
             count += 1
+        pos = (pos - part) % 100
+    elif d == "R":
+        if pos != 0 and pos + part >= 100:
+            count += 1
+        pos = (pos + part) % 100
 
 print(count)
 
